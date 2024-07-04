@@ -1,0 +1,75 @@
+<div class="section pt-3">
+    <div class="container">
+        <div class="tim-title">
+            <h1>Movies</h1>
+            <!-- <button type="button" class="btn btn-danger" (click)="openAuthenticationModal(authModal)">Add Movie</button> -->
+        </div>
+        <!-- Modal de Autenticación -->
+        <ng-template #authModal let-modal>
+            <div class="modal-header">
+                <h5 class="modal-title" id="authModalLabel">Authentication Required</h5>
+                <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="authenticate()">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" [(ngModel)]="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+        </ng-template>
+
+        <!-- Modal de Agregar Película -->
+        <ng-template #movieModal let-modal="close">
+            <div class="modal-header">
+                <h5 class="modal-title" id="movieModalLabel">Add Movie</h5>
+                <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="addMovie()">
+                    <div class="form-group">
+                        <label for="movieName">Name</label>
+                        <input type="text" class="form-control" id="movieName" [(ngModel)]="newMovie.name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="movieDescription">Description</label>
+                        <textarea class="form-control" id="movieDescription" [(ngModel)]="newMovie.description" name="description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="movieImageUrl">Image URL</label>
+                        <input type="url" class="form-control" id="movieImageUrl" [(ngModel)]="newMovie.imageUrl" name="imageUrl" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="movieDriveUrl">Google Drive URL</label>
+                        <input type="url" class="form-control" id="movieDriveUrl" [(ngModel)]="newMovie.driveUrl" name="driveUrl" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Movie</button>
+                </form>
+            </div>
+        </ng-template>
+
+        <!-- Movies List -->
+        <div class="row">
+            <div class="col-md-4" *ngFor="let movie of movies">
+                <div class="card mb-4">
+                    <img class="card-img-top" [src]="movie.imageUrl" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ movie.name }}</h5>
+                        <p class="card-text">{{ movie.description }}</p>
+                        <a [href]="movie.driveUrl" target="_blank" class="btn btn-danger btn-link">Ver</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
